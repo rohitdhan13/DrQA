@@ -49,6 +49,10 @@ if args.cuda:
 else:
     logger.info('Running on CPU only.')
 
+print('model',args.model)
+print('tokenizer',args.tokenizer)
+print('normalize',args.no_normalize)
+print('cuda',args.cuda)
 predictor = Predictor(args.model, args.tokenizer, num_workers=0,
                       normalize=not args.no_normalize)
 if args.cuda:
@@ -61,13 +65,17 @@ if args.cuda:
 
 
 def process(document, question, candidates=None, top_n=1):
+    #predictor = Predictor(None,'spacy',num_workers=0,normalize=True)
     t0 = time.time()
     predictions = predictor.predict(document, question, candidates, top_n)
     table = prettytable.PrettyTable(['Rank', 'Span', 'Score'])
+    val = []
     for i, p in enumerate(predictions, 1):
+        val.append(p[0])
         table.add_row([i, p[0], p[1]])
-    print(table)
-    print('Time: %.4f' % (time.time() - t0))
+    #print(table)
+    #print('Time: %.4f' % (time.time() - t0))
+    return val[0]
 
 
 banner = """

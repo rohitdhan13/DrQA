@@ -22,10 +22,10 @@ from .regexp_tokenizer import RegexpTokenizer
 from .simple_tokenizer import SimpleTokenizer
 
 # Spacy is optional
-try:
-    from .spacy_tokenizer import SpacyTokenizer
-except ImportError:
-    pass
+#try:
+from .spacy_tokenizer import SpacyTokenizer
+#except ImportError:
+#    pass
 
 
 def get_class(name):
